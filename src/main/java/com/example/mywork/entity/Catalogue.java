@@ -4,15 +4,28 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Catalogue {//目录实体类
-    public String path;//目录绝对路径
-    public List<String> documents;//文件名字
+/*
+@author: zzjzzjz
+@className: Catalogue
+@packetName: com.example.mywork.entity
+@description: a class of catalogue file, save its path from base path and sub file
+@date: 2022-07-20
+ */
+public class Catalogue {
+    public String path;//path from base path
+    public List<String> documents;//sub file name list
     public Catalogue(String path2){
         path=path2;
         documents=new ArrayList<>();
 
         findDocument(path);
     }
+    /*
+    @author: zzjzzjz
+    @methodsName: findDocument
+    @description: a private method to find all document name and assign param documents
+    @param: path
+     */
     private void findDocument(String path){
         File file=new File(path);
         String[] strings=file.list();

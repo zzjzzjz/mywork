@@ -2,6 +2,7 @@
 <%@ page import="java.net.InetAddress" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.net.URLDecoder" %>
+<%@ page import="com.example.mywork.util.URLNormalize" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -15,27 +16,15 @@
 </head>
 <body>
 <%
-    String path="D:\\mywork\\music";
-    String pathrequest="";
 
+    String path="D:\\mywork\\music";//Base path
 
-
-    Catalogue catalogue=new Catalogue(path);
+    Catalogue catalogue=new Catalogue(path);//
     String url=" ";
 
     for(int i=0;i<catalogue.documents.size();i++){
         url=catalogue.documents.get(i);
-        char[] ch=url.toCharArray();
-        String b="";
-        for(int j=0;j<ch.length;j++){
-            if(ch[j]==' '){
-                b=b+"+";
-            }
-            else {
-                b=b+ch[j];
-            }
-        }
-        url=b;
+        url= URLNormalize.normalize(url);
 
 
         out.println("<p><a href="+"http://"+ InetAddress.getLocalHost().getHostAddress()+":8090/documentHandle?name="+url+"&path=/"+">"+catalogue.documents.get(i)+"</a></p>");

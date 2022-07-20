@@ -1,5 +1,6 @@
 <%@ page import="com.example.mywork.entity.Catalogue" %>
-<%@ page import="java.net.InetAddress" %><%--
+<%@ page import="java.net.InetAddress" %>
+<%@ page import="com.example.mywork.util.URLNormalize" %><%--
   Created by IntelliJ IDEA.
   User: zzjzzjz
   Date: 2022/7/20
@@ -24,17 +25,7 @@
 
     for(int i=0;i<catalogue.documents.size();i++){
         url=catalogue.documents.get(i);
-        char[] ch=url.toCharArray();
-        String b="";
-        for(int j=0;j<ch.length;j++){
-            if(ch[j]==' '){
-                b=b+"+";
-            }
-            else {
-                b=b+ch[j];
-            }
-        }
-        url=b;
+        url= URLNormalize.normalize(url);
 
 
         out.println("<p><a href="+"http://"+ InetAddress.getLocalHost().getHostAddress()+":8090/documentHandle?name="+url+"&path="+request.getParameter("path")+request.getParameter("name")+"/>"+catalogue.documents.get(i)+"</a></p>");

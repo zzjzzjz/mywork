@@ -13,33 +13,38 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 
+
+
+/*
+@author: zzjzzjz
+@className: DocumentHandle
+@description: handle request to find a resource
+@date: 2002-7-20
+ */
+
 @WebServlet(value ="/documentHandle")
 public class DocumentHandle extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
-
         RequestDispatcher requestDispatcher=req.getRequestDispatcher("/catalogue.jsp");
         String name=req.getParameter("name");
         String path=req.getParameter("path");
-        String basePath="D:\\mywork\\music";
-        //name = new String(name.getBytes("ISO8859-1"),"UTF-8");
-        //name= URLEncoder.encode(name);
-        System.out.println(name);
-        System.out.println(path);
+        String basePath="D:\\mywork\\music";//base path
 
         path=basePath+path+name;
-        System.out.println(path);
+
 
         File file=new File(path);
-
-        if (file.isDirectory()){
+        if (file.isDirectory()){//request is a catalogue file and return catalogue.jsp
             requestDispatcher.forward(req,resp);
         }
         else {
             OutputStream os=resp.getOutputStream();
 
             String type=path.split("\\.")[path.split("\\.").length-1];
+
+            //judge type of file and return corresponding message
             if(type.equals("mp3")){
                 resp.setContentType("audio/mp3");
             }
@@ -59,7 +64,7 @@ public class DocumentHandle extends HttpServlet {
 
 
         }
-        System.out.println("fasdasdasdasd");
+
 
 
     }
